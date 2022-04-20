@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity(name="ANSWERS")
+@Entity(name = "ANSWERS")
 public class Answer {
     @Id
     @NonNull
@@ -19,14 +19,18 @@ public class Answer {
     private String name;
 
     @NonNull
+    private boolean goodAnswer;
+
+    @NonNull
     @ManyToOne
-    @JsonBackReference
     private Question question;
 
-    public Answer(){}
+    public Answer() {
+    }
 
-    public Answer(@NonNull String name, @NonNull Question question) {
+    public Answer(@NonNull String name, boolean goodAnswer, @NonNull Question question) {
         this.name = name;
+        this.goodAnswer = goodAnswer;
         this.question = question;
     }
 
@@ -36,6 +40,15 @@ public class Answer {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @NonNull
+    public boolean isGoodAnswer() {
+        return goodAnswer;
+    }
+
+    public void setGoodAnswer(boolean goodAnswer) {
+        this.goodAnswer = goodAnswer;
     }
 
     @NonNull

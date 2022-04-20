@@ -20,6 +20,7 @@ public class Survey {
     private String description;
 
     @NonNull
+    // cascade.all => all entity operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH)
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private Set<Question> questions;
 
@@ -31,13 +32,6 @@ public class Survey {
         this.description = description;
         this.questions = new HashSet<>();
     }
-
-    public Survey(@NonNull String title, @NonNull String description, @NonNull Set<Question> questions) {
-        this.title = title;
-        this.description = description;
-        this.questions = questions;
-    }
-
 
     public int getId() {
         return id;

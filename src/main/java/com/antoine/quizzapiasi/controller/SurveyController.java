@@ -42,7 +42,7 @@ public class SurveyController {
     }
 
     @GetMapping(path = SurveyEndpoint.SURVEY, produces =  MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<?> getSurvey(@PathVariable("id") int id){
+    public  ResponseEntity<?> getSurveyById(@PathVariable("id") int id){
         try{
 
             Survey survey = surveyService.findSurveyById(id);
@@ -55,7 +55,7 @@ public class SurveyController {
 
 
     @PostMapping(path = SurveyEndpoint.CREATE_SURVEY, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addSurvey(@RequestBody Survey surveyClient) {
+    public ResponseEntity<?> addSurveyWithQuestionsWithAnswers(@RequestBody Survey surveyClient) {
 
         try {
 
