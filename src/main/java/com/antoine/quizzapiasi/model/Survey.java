@@ -6,7 +6,6 @@ import org.springframework.lang.NonNull;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity(name = "SURVEYS")
@@ -21,7 +20,7 @@ public class Survey {
     private String description;
     @NonNull
     @OneToMany(mappedBy = "survey")
-    private Set<Question> question;
+    private Set<Question> questions;
 
     public Survey() {
     }
@@ -61,12 +60,12 @@ public class Survey {
 
     @NonNull
     @JsonManagedReference
-    public Set<Question> getQuestion() {
-        return question;
+    public Set<Question> getQuestions() {
+        return questions;
     }
 
-    public void setQuestion(@NonNull Set<Question> question) {
-        this.question = question;
+    public void setQuestions(@NonNull Set<Question> question) {
+        this.questions = question;
     }
 
     // ne fonctionne pas, difficulter à avoir les questions
@@ -78,7 +77,7 @@ public class Survey {
                 ", description='" + description + '\'' +
                 ", question= ";
         for (Question question :
-                this.question) {
+                this.questions) {
             survey += question.toString();
         }
         return survey;
