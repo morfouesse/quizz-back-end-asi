@@ -3,21 +3,20 @@ package com.antoine.quizzapiasi.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "QUESTIONS")
 public class Question {
     @Id
     @NonNull
+    @GeneratedValue
     private int id;
 
     @NonNull
     private String title;
 
-    @ManyToOne
+    @ManyToOne()
     @JsonBackReference
     @NonNull
     private Survey survey;
@@ -27,13 +26,12 @@ public class Question {
 
     }
 
-    public Question(int id, @NonNull String title) {
-        this.id = id;
+    public Question(@NonNull String title, @NonNull Survey survey) {
         this.title = title;
+        this.survey = survey;
     }
 
     public Question(@NonNull int id, @NonNull String title, @NonNull Survey survey) {
-        super();
         this.id = id;
         this.title = title;
         this.survey = survey;

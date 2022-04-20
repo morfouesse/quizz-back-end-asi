@@ -4,20 +4,23 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "SURVEYS")
 public class Survey {
     @Id
     @NonNull
-    //@GeneratedValue
+    @GeneratedValue
     private int id;
     @NonNull
     private String title;
     @NonNull
     private String description;
+
     @NonNull
     @OneToMany(mappedBy = "survey")
     private Set<Question> questions;
@@ -25,10 +28,10 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(int id, @NonNull String title, @NonNull String description) {
-        this.id = id;
+    public Survey(@NonNull String title, @NonNull String description) {
         this.title = title;
         this.description = description;
+        this.questions = new HashSet<>();
     }
 
 
@@ -68,18 +71,17 @@ public class Survey {
         this.questions = question;
     }
 
-    // ne fonctionne pas, difficulter à avoir les questions
     @Override
     public String toString() {
-        String survey = "Survey{" +
+        StringBuilder survey = new StringBuilder("Survey{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", question= ";
+                ", question= ");
         for (Question question :
-                this.questions) {
-            survey += question.toString();
+                this.getQuestions()) {
+            survey.append(question.toString());
         }
-        return survey;
+        return survey.toString();
     }
 }
