@@ -1,16 +1,10 @@
 package com.antoine.quizzapiasi.controller;
 
-import com.antoine.quizzapiasi.apiElements.QuestionEndpoint;
-import com.antoine.quizzapiasi.model.Question;
 import com.antoine.quizzapiasi.service.question.QuestionServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Set;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -25,16 +19,5 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @PostMapping(path = QuestionEndpoint.CREATE_QUESTIONS, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addQuestions(@RequestBody Set<Question> questions) {
-        try {
-            questionService.addQuestionsInSurvey(questions);
-
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not Found", e);
-        }
-
-    }
 
 }

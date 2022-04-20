@@ -9,6 +9,6 @@ import java.util.Set;
 @Transactional
 public interface IQuestionService {
 
-    void addQuestionsInSurvey(@NonNull Set<Question> questions);
+
 
 }

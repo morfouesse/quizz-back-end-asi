@@ -3,15 +3,13 @@ package com.antoine.quizzapiasi.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "SURVEYS")
 public class Survey {
+
     @Id
     @NonNull
     @GeneratedValue
@@ -22,7 +20,7 @@ public class Survey {
     private String description;
 
     @NonNull
-    @OneToMany(mappedBy = "survey")
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private Set<Question> questions;
 
     public Survey() {
@@ -32,6 +30,12 @@ public class Survey {
         this.title = title;
         this.description = description;
         this.questions = new HashSet<>();
+    }
+
+    public Survey(@NonNull String title, @NonNull String description, @NonNull Set<Question> questions) {
+        this.title = title;
+        this.description = description;
+        this.questions = questions;
     }
 
 

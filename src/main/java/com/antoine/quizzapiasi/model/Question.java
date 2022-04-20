@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity(name = "QUESTIONS")
 public class Question {
@@ -22,20 +21,16 @@ public class Question {
     private Survey survey;
 
 
+
+
     public Question() {
 
     }
-
     public Question(@NonNull String title, @NonNull Survey survey) {
         this.title = title;
         this.survey = survey;
     }
 
-    public Question(@NonNull int id, @NonNull String title, @NonNull Survey survey) {
-        this.id = id;
-        this.title = title;
-        this.survey = survey;
-    }
 
     public int getId() {
         return id;

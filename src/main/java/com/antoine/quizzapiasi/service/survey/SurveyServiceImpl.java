@@ -4,12 +4,14 @@ import com.antoine.quizzapiasi.dao.ISurveyDao;
 import com.antoine.quizzapiasi.model.Question;
 import com.antoine.quizzapiasi.model.Survey;
 import com.antoine.quizzapiasi.service.survey.ISurveyService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class SurveyServiceImpl implements ISurveyService {
 
@@ -32,7 +34,7 @@ public class SurveyServiceImpl implements ISurveyService {
 
     @Override
     public void addSurvey(@NonNull Survey survey) {
-        isurveyDao.saveAndFlush(survey);
+        isurveyDao.save(survey);
     }
 
 
