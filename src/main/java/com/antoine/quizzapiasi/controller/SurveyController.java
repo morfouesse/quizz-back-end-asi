@@ -28,7 +28,7 @@ public class SurveyController {
 
 
     @GetMapping(path = SurveyEndpoint.SURVEYS, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getSurveys() {
+    public ResponseEntity<?> getSurveys() throws ResponseStatusException{
         try{
 
             List<Survey> surveyList = surveyService.findAllSurveys();
@@ -42,7 +42,7 @@ public class SurveyController {
     }
 
     @GetMapping(path = SurveyEndpoint.SURVEY, produces =  MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<?> getSurveyById(@PathVariable("id") int id){
+    public  ResponseEntity<?> getSurveyById(@PathVariable("id") int id) throws ResponseStatusException {
         try{
 
             Survey survey = surveyService.findSurveyById(id);
@@ -55,7 +55,7 @@ public class SurveyController {
 
 
     @PostMapping(path = SurveyEndpoint.CREATE_SURVEY, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addSurveyWithQuestionsWithAnswers(@RequestBody Survey surveyClient) {
+    public ResponseEntity<?> addSurveyWithQuestionsWithAnswers(@RequestBody Survey surveyClient) throws ResponseStatusException {
 
         try {
 
