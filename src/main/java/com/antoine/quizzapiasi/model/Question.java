@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,10 +15,12 @@ import java.util.Set;
 public class Question {
     @Id
     @NonNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NonNull
+    @NotBlank(message = "Le titre de la question n'est pas valide")
+    @Size(min = 5)
     private String title;
 
     @ManyToOne
@@ -23,6 +28,8 @@ public class Question {
     private Survey survey;
 
     @NonNull
+    @Valid
+    @Size(min=2, max=4)
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private Set<Answer> answers;
 
@@ -34,6 +41,8 @@ public class Question {
         this.survey = survey;
         this.answers = new HashSet<>();
     }
+
+
 
 
     public int getId() {

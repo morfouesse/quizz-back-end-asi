@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,15 +14,20 @@ import java.util.Set;
 public class Survey {
 
     @Id
-    @NonNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NonNull
+    @NotBlank(message = "Le titre n'est pas valide")
+    @Size(min = 4)
     private String title;
     @NonNull
+    @NotBlank(message = "Le titre du questionnaire n'est pas valide")
+    @Size(min = 4)
     private String description;
 
     @NonNull
+    @Valid
+    @Size(message = "Il doit y avoir entre 2 et 10 questions", min=2, max=10)
     // cascade.all => all entity operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH)
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private Set<Question> questions;
@@ -31,6 +39,12 @@ public class Survey {
         this.title = title;
         this.description = description;
         this.questions = new HashSet<>();
+    }
+
+    public Survey(@NonNull String title, @NonNull String description, @NonNull Set<Question> questions) {
+        this.title = title;
+        this.description = description;
+        this.questions = questions;
     }
 
     public int getId() {
@@ -45,10 +59,6 @@ public class Survey {
     @NonNull
     public String getDescription() {
         return description;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setTitle(@NonNull String title) {

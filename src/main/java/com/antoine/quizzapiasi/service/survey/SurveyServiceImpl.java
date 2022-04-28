@@ -1,9 +1,9 @@
 package com.antoine.quizzapiasi.service.survey;
 
 import com.antoine.quizzapiasi.dao.ISurveyDao;
+import com.antoine.quizzapiasi.model.Answer;
 import com.antoine.quizzapiasi.model.Question;
 import com.antoine.quizzapiasi.model.Survey;
-import com.antoine.quizzapiasi.service.survey.ISurveyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -28,14 +28,29 @@ public class SurveyServiceImpl implements ISurveyService {
 
     @Override
     public Survey findSurveyById(@NonNull int id) {
-        Optional<Survey> survey= isurveyDao.findById(id);
+        Optional<Survey> survey = isurveyDao.findById(id);
         return survey.orElseThrow();
     }
 
     @Override
     public void addSurvey(@NonNull Survey survey) {
+        surveyStrip(survey);
         isurveyDao.save(survey);
     }
+    private void surveyStrip(Survey survey) {
+        survey.setTitle(survey.getTitle().strip());
+        survey.setDescription(survey.getDescription().strip());
+        for (Question question :
+                survey.getQuestions()) {
+            question.setTitle(question.getTitle().strip());
+        }
+        for (Question question :
+                survey.getQuestions()) {
+            for (Answer answer : question.getAnswers())
+                answer.setName(answer.getName().strip());
+        }
+    }
+
 
 
     @Override
