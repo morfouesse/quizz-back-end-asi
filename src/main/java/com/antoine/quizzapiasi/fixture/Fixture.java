@@ -31,10 +31,10 @@ public class Fixture {
 
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
-
-        iSurveyDao.saveAllAndFlush(this.getSurveys());
+        // ne fonctionne plus avec la validation coté back-end
+       /* iSurveyDao.saveAllAndFlush(this.getSurveys());
         iQuestionDao.saveAllAndFlush(this.getQuestions());
-        iAnswerDao.saveAllAndFlush(this.getAnswers());
+        iAnswerDao.saveAllAndFlush(this.getAnswers());*/
     }
 
     public List<Survey> getSurveys() {

@@ -1,24 +1,27 @@
 package com.antoine.quizzapiasi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity(name = "ANSWERS")
 public class Answer {
     @Id
     @NonNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NonNull
+    @NotBlank(message = "Le nom de la réponse n'est pas valide")
+    @Size(message = "une réponse doit faire entre 1 et 30 caractères", min = 1, max = 30)
     private String name;
 
     @NonNull
+    //TODO: crée une validation custom -> une seul reponse dois etre true dans une liste de réponses
     private boolean goodAnswer;
 
     @NonNull
@@ -50,6 +53,7 @@ public class Answer {
     public void setGoodAnswer(boolean goodAnswer) {
         this.goodAnswer = goodAnswer;
     }
+
 
     @NonNull
     public String getName() {
